@@ -1,9 +1,10 @@
-import React from 'react'
 import DeleteIcon from '../assets/Icons/delete1.svg?react';
 import View from '../assets/Icons/view-svgrepo-com.svg?react'
-import Todo from './Todo';
 
-const List = ({todos}) => {
+const List = ({todos,onRadioChange,selectedTodoId }) => {
+
+  
+
   if(todos.length===0){
     return <p>No Todo Found!</p>
   }
@@ -13,7 +14,7 @@ const List = ({todos}) => {
       
     <div key={Todo.id} className="flex flex-wrap items-center justify-between gap-4 border-2 border-blue-800 rounded-2xl px-4 py-3 m-4 shadow-sm bg-white">
     <div className="flex items-center gap-3 flex-1">
-      <input type="radio" className="accent-blue-700 scale-125" />
+      <input  type="radio" value={Todo.id} onChange={()=> {onRadioChange(Todo.id)}} className={`flex flex-wrap items-center justify-between gap-4 border-2 ${selectedTodoId === Todo.id ? 'border-green-500' : 'border-blue-800'} rounded-2xl px-4 py-3 m-4 shadow-sm bg-white`} />
       <div>
         <h4 className="text-lg font-semibold text-gray-800">{Todo.title}</h4>
         <h5 className="text-sm text-gray-600">{Todo.description}</h5>
