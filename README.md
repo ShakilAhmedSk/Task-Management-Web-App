@@ -127,4 +127,7 @@ mvnw.cmd spring-boot:run # for Windows
 This project is licensed for educational and learning purposes.
 
 ---
+## What the app looks like
+
+![screenshot1](https://github.com/ShakilAhmedSk/Task-Management-Web-App/blob/main/screenshots/Recording2025-04-29001824-ezgif.com-video-to-gif-converter.gif)
 
