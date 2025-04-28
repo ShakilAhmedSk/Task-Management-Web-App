@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import List from '../component/List';
 
+
+
 function Todo() {
   const [titleValue, setTitle] = useState('');
   const [descValue, setDecs] = useState('');
   const [todos, setTodo] = useState([]);
   const [selectedTodoId, setSelectedTodoId] = useState(null);
+  const [viewTodo, setViewTodo] = useState(null);
 
   const fetchAllTodo = async () => {
     try {
@@ -125,9 +128,14 @@ function Todo() {
 
   }
   
+  const handleView = (todo) => {
+    setViewTodo(todo);
+  };
+  
 
   return (
-    <div className='flex flex-col items-center justify-center gap-[40px]'>
+    <>
+    <div className='flex flex-col  items-center justify-center gap-[40px]'>
       {/* Main Div */}
       <div className='flex flex-col gap-10 border-2 border-emerald-800 p-7 m-4 rounded-[15px] w-4/5'>
         {/* Header H1 text */}
@@ -167,9 +175,31 @@ function Todo() {
         </div>
 
         {/* Task List */}
-        <List todos={todos} onRadioChange={handleRadioChange} deleteById={deleteById} selectedTodoId={selectedTodoId} />
+        <List 
+          todos={todos} 
+          onRadioChange={handleRadioChange} 
+          deleteById={deleteById} 
+          handleView={handleView} 
+          selectedTodoId={selectedTodoId}
+        />
       </div>
     </div>
+          {/* ✅ Popup inside same div */}
+          {viewTodo && (
+        <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-md text-center space-y-4">
+            <h2 className="text-2xl font-bold text-blue-700">{viewTodo.title}</h2>
+            <p className="text-gray-600">{viewTodo.description}</p>
+            <button
+              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              onClick={() => setViewTodo(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

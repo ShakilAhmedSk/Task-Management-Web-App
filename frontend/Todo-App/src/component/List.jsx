@@ -1,7 +1,7 @@
 import DeleteIcon from '../assets/Icons/delete1.svg?react';
 import View from '../assets/Icons/view-svgrepo-com.svg?react'
 
-const List = ({todos,onRadioChange,deleteById }) => {
+const List = ({todos,onRadioChange,deleteById,handleView }) => {
 
   
 
@@ -28,7 +28,7 @@ const List = ({todos,onRadioChange,deleteById }) => {
     </div>
 
     <div className="flex items-center gap-2">
-      <View className="w-8 h-8 p-1 rounded-md text-white bg-gray-500 hover:bg-blue-600 cursor-pointer transition-colors" />
+      <View  onClick={() => handleView(Todo)}className="w-8 h-8 p-1 rounded-md text-white bg-gray-500 hover:bg-blue-600 cursor-pointer transition-colors" />
       <DeleteIcon 
       value={Todo.id}
       onClick={()=>deleteById(Todo.id)}
