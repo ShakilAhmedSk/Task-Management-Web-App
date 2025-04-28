@@ -1,3 +1,7 @@
+# What the app looks like
+
+![screenshot1](https://github.com/ShakilAhmedSk/Task-Management-Web-App/blob/main/screenshots/Recording2025-04-29001824-ezgif.com-video-to-gif-converter.gif)
+
 # 📝 My Todo App
 
 A full-stack simple Todo Application built with:
