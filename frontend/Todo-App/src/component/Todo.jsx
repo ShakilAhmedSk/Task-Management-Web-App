@@ -38,7 +38,8 @@ function Todo() {
 
     const todo = {
       title: titleValue,
-      description: descValue
+      description: descValue,
+      selected: false
     };
 
     try {
@@ -62,11 +63,68 @@ function Todo() {
       console.error("Error:", err);
     }
   };
+  
 
-  const handleRadioChange = (id) => {
+  const handleRadioChange = async (id) => {
     setSelectedTodoId(id);
-    console.log(`Selected ID: ${id}`);
+  
+    const selectedTodo = todos.find(todo => todo.id === id); // find todo by id
+  
+    if (!selectedTodo) {
+      console.error("Todo not found");
+      return;
+    }
+  
+    const updatedTodo = {
+      ...selectedTodo,
+      selected: true   
+    };
+  
+    try {
+      const response = await fetch(`http://localhost:8080/api/todos/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedTodo) // send full updated todo
+      });
+  
+      if (response.ok) {
+        console.log("Updated selected status!");
+        // you can refresh if you want, or not
+        fetchAllTodo();
+      } else {
+        console.error("Failed to update selected status");
+      }
+    } catch (err) {
+      console.error("Error updating selected:", err);
+    }
   };
+  
+
+  const deleteById = async (id)=>{
+
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch(`http://localhost:8080/api/todos/${id}`,{
+          method:`DELETE`
+        });
+        if (response.ok) {
+          console.log(`Delete Successfully`);
+          fetchAllTodo();
+        }
+        else{
+          console.log(`Unable To Delete Todo`);
+        }
+
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+  
 
   return (
     <div className='flex flex-col items-center justify-center gap-[40px]'>
@@ -109,7 +167,7 @@ function Todo() {
         </div>
 
         {/* Task List */}
-        <List todos={todos} onRadioChange={handleRadioChange} selectedTodoId={selectedTodoId} />
+        <List todos={todos} onRadioChange={handleRadioChange} deleteById={deleteById} selectedTodoId={selectedTodoId} />
       </div>
     </div>
   );

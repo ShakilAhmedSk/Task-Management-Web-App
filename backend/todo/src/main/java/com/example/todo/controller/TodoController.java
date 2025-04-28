@@ -52,6 +52,7 @@ public class TodoController {
             Todo existingTodo = existingTodoOptional.get();
             existingTodo.setTitle(updatedTodoData.getTitle());
             existingTodo.setDescription(updatedTodoData.getDescription());
+            existingTodo.setSelected(updatedTodoData.isSelected());
 
             Todo savedTodo = todoService.saveTodo(existingTodo);
             return ResponseEntity.ok(savedTodo);
